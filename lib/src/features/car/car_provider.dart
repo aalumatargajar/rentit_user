@@ -11,7 +11,7 @@ class CarProvider extends ChangeNotifier {
   final CarRepository _carRepository = CarRepository();
 
   //! --------------------- GET CARS ---------------------
-  List<CarModel> _carList = dummyCarsList;
+  List<CarModel> _carList = [];
   List<CarModel> get carList => _carList;
 
   Future<void> getAllCars({required BuildContext context}) async {
@@ -57,21 +57,21 @@ class CarProvider extends ChangeNotifier {
     }
   }
 
-  int _selectedBrandId = 0;
-  int get selectedBrandId => _selectedBrandId;
-  void updateSelectedBrandId({required int brandId}) {
-    _selectedBrandId = brandId;
-    if (brandId == 0) {
-      _carList = dummyCarsList;
-    } else {
-      _carList =
-          dummyCarsList
-              .where((car) => car.brandId == brandId.toString())
-              .toList();
-    }
+  // int _selectedBrandId = 0;
+  // int get selectedBrandId => _selectedBrandId;
+  // void updateSelectedBrandId({required int brandId}) {
+  //   _selectedBrandId = brandId;
+  //   if (brandId == 0) {
+  //     _carList = dummyCarsList;
+  //   } else {
+  //     _carList =
+  //         dummyCarsList
+  //             .where((car) => car.brandId == brandId.toString())
+  //             .toList();
+  //   }
 
-    notifyListeners();
-  }
+  //   notifyListeners();
+  // }
 
   //! ---------------- GET CAR BY ID ----------------
   Future<CarModel?> getCarById({required String id}) async {

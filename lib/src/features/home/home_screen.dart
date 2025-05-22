@@ -74,18 +74,19 @@ class _HomeScreenState extends State<HomeScreen> {
             },
           ),
 
-          if (searchedValue.isEmpty) SizedBox(height: 4),
+          if (searchedValue.isEmpty) SizedBox(height: 10),
           if (searchedValue.isEmpty)
             CustomWidgets.seeAllRow(
               context: context,
               title: "Top Brands",
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const BrandsScreen()),
-                );
-              },
+              // onTap: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => const BrandsScreen()),
+              //   );
+              // },
             ),
+          if (searchedValue.isEmpty) SizedBox(height: 10),
           if (searchedValue.isEmpty)
             Consumer<BrandsProvider>(
               builder: (context, brandsProvider, child) {
@@ -334,7 +335,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: car.pricePerDay.toString(),
+                                        text: car.pricePerDay.toStringAsFixed(
+                                          0,
+                                        ),
                                         style: txtTheme(
                                           context,
                                         ).labelLarge!.copyWith(

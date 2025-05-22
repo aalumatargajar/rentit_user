@@ -20,4 +20,32 @@ class BookingRepository {
       return Left("Error Add Booking: ${e.toString()}");
     }
   }
+
+  //! ------------------ EDIT BOOKING --------------------
+  Future<Either<String, String>> editBooking({
+    required BookingModel booking,
+  }) async {
+    try {
+      _firestore.collection('booking').doc(booking.id).update(booking.toJson());
+
+      return Right("Booking updated successfully");
+    } catch (e) {
+      log("Error Edit Booking: ${e.toString()}");
+      return Left("Error Edit Booking: ${e.toString()}");
+    }
+  }
+
+  //! ------------------ DELETE BOOKING --------------------
+  Future<Either<String, String>> deleteBooking({
+    required String bookingId,
+  }) async {
+    try {
+      await _firestore.collection('booking').doc(bookingId).delete();
+
+      return Right("Booking deleted successfully");
+    } catch (e) {
+      log("Error Delete Booking: ${e.toString()}");
+      return Left("Error Delete Booking: ${e.toString()}");
+    }
+  }
 }

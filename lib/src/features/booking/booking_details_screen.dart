@@ -7,7 +7,9 @@ import 'package:rentit_user/src/common/const/global_variable.dart';
 import 'package:rentit_user/src/common/model/booking_model.dart';
 import 'package:rentit_user/src/common/model/car_model.dart';
 import 'package:rentit_user/src/common/widgets/custom_back_button.dart';
+import 'package:rentit_user/src/common/widgets/custom_dialog.dart';
 import 'package:rentit_user/src/features/booking/booking_provider.dart';
+import 'package:rentit_user/src/features/booking/edit_booking_screen.dart';
 import 'package:rentit_user/src/features/car/car_provider.dart';
 import 'package:rentit_user/src/features/car/car_widget.dart';
 import 'package:shimmer/shimmer.dart';
@@ -37,59 +39,70 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
         leading: CustomBackButton(onTap: () => Navigator.of(context).pop()),
         title: Text("Booking Details"),
         centerTitle: true,
-        // actions: [
-        //   if (DateTime.now()
-        //           .difference(widget.bookingModel.createdAt)
-        //           .inMinutes <=
-        //       10)
-        //     IconButton(
-        //       style: IconButton.styleFrom(
-        //         backgroundColor: colorScheme(context).primary,
-        //         foregroundColor: colorScheme(context).onPrimary,
-        //       ),
-        //       onPressed: () {
-        //         Navigator.push(
-        //           context,
-        //           MaterialPageRoute(
-        //             builder:
-        //                 (context) => EditBookingScreen(
-        //                   bookingModel: widget.bookingModel,
-        //                 ),
-        //           ),
-        //         );
-        //       },
-        //       icon: const Icon(Icons.edit),
-        //     ),
-        //   if (DateTime.now()
-        //           .difference(widget.bookingModel.createdAt)
-        //           .inMinutes <=
-        //       10)
-        //     IconButton(
-        //       style: IconButton.styleFrom(
-        //         backgroundColor: colorScheme(context).error,
-        //         foregroundColor: colorScheme(context).onPrimary,
-        //       ),
-        //       onPressed: () {
-        //         final bookingProvider = Provider.of<BookingProvider>(
-        //           context,
-        //           listen: false,
-        //         );
-        //         bookingProvider.deleteBooking(
-        //           id: widget.bookingModel.id,
-        //           onSuccess: () {
-        //             Navigator.pop(context);
-        //             // Navigator.pop(context);
-        //             // final bottomNavProvider = Provider.of<BottomNavbarProvider>(
-        //             //   context,
-        //             //   listen: false,
-        //             // );
-        //             // bottomNavProvider.changeIndex(index: 1);
-        //           },
-        //         );
-        //       },
-        //       icon: const Icon(Icons.delete),
-        //     ),
-        // ],
+        actions: [
+          // if (DateTime.now()
+          //         .difference(widget.bookingModel.createdAt)
+          //         .inMinutes <=
+          //     100)
+          //   IconButton(
+          //     style: IconButton.styleFrom(
+          //       backgroundColor: colorScheme(context).primary,
+          //       foregroundColor: colorScheme(context).onPrimary,
+          //     ),
+          //     onPressed: () {
+          //       Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder:
+          //               (context) => EditBookingScreen(
+          //                 bookingModel: widget.bookingModel,
+          //               ),
+          //         ),
+          //       );
+          //     },
+          //     icon: const Icon(Icons.edit),
+          //   ),
+          if (DateTime.now()
+                  .difference(widget.bookingModel.createdAt)
+                  .inMinutes <=
+              10)
+            IconButton(
+              style: IconButton.styleFrom(
+                backgroundColor: colorScheme(context).error,
+                foregroundColor: colorScheme(context).onPrimary,
+              ),
+              onPressed: () {
+                CustomDialog.deleteConfirmationDialog(
+                  context: context,
+                  content: "Do you really want to delete this booking?",
+                  onDelete: () {
+                    final bookingProvider = Provider.of<BookingProvider>(
+                      context,
+                      listen: false,
+                    );
+                    bookingProvider.deleteBooking(
+                      bookingId: widget.bookingModel.id,
+                      context: context,
+                      onSuccess: () {
+                        final carProvider = Provider.of<CarProvider>(
+                          context,
+                          listen: false,
+                        );
+                        carProvider.updateCarStatus(
+                          context: context,
+                          carId: widget.bookingModel.carId,
+                          isBooked: false,
+                        );
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                    );
+                  },
+                );
+              },
+              icon: const Icon(Icons.delete),
+            ),
+        ],
       ),
       body: Consumer2<CarProvider, BookingProvider>(
         builder: (context, carProvider, bookingProvider, child) {
@@ -344,7 +357,9 @@ class _BookingDetailsScreenState extends State<BookingDetailsScreen> {
                           ),
                         ),
                         TextSpan(
-                          text: widget.bookingModel.totalPrice.toString(),
+                          text: widget.bookingModel.totalPrice.toStringAsFixed(
+                            0,
+                          ),
                           style: txtTheme(context).titleMedium!.copyWith(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
