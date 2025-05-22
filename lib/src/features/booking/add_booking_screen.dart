@@ -10,9 +10,12 @@ import 'package:rentit_user/src/common/model/booking_model.dart';
 import 'package:rentit_user/src/common/model/car_model.dart';
 import 'package:rentit_user/src/common/utils/cities_list.dart';
 import 'package:rentit_user/src/common/widgets/custom_back_button.dart';
+import 'package:rentit_user/src/common/widgets/custom_snackbar.dart';
 import 'package:rentit_user/src/common/widgets/custom_textformfield.dart';
+import 'package:rentit_user/src/features/booking/booking_pickup_dialog.dart';
 import 'package:rentit_user/src/features/booking/booking_provider.dart';
 import 'package:rentit_user/src/features/bottom_nav/bottom_navbar_provider.dart';
+import 'package:rentit_user/src/features/car/add_car_screen.dart';
 import 'package:shimmer/shimmer.dart';
 
 class AddBookingScreen extends StatefulWidget {
@@ -341,25 +344,18 @@ class _AddBookingScreenState extends State<AddBookingScreen> {
                   createdAt: DateTime.now(),
                   updatedAt: DateTime.now(),
                 );
-
-                final provider = Provider.of<BookingProvider>(
-                  context,
-                  listen: false,
-                );
-                provider.addBooking(
+                showDialog(
                   context: context,
-                  booking: bookingModel,
-                  onSuccess: () {
-                    Navigator.pop(context);
-                    Navigator.pop(context);
-                    final bottomNavProvider = Provider.of<BottomNavbarProvider>(
-                      context,
-                      listen: false,
-                    );
-                    bottomNavProvider.changeIndex(index: 1);
-                  },
+                  builder:
+                      (context) =>
+                          BookingPickupDialog(bookingModel: bookingModel),
                 );
-              } else {}
+              } else {
+                CustomSnackbar.error(
+                  context: context,
+                  message: "Please select destination city",
+                );
+              }
             },
             child: Container(
               width: double.infinity,

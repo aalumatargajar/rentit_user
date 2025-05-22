@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:rentit_user/src/common/const/app_images.dart';
 import 'package:rentit_user/src/common/const/global_variable.dart';
+import 'package:rentit_user/src/theme/color_scheme.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomWidgets {
@@ -71,7 +72,7 @@ class CustomWidgets {
   static Row seeAllRow({
     required BuildContext context,
     required String title,
-    required VoidCallback onTap,
+    VoidCallback? onTap,
   }) {
     return Row(
       children: [
@@ -82,22 +83,23 @@ class CustomWidgets {
           ).bodyLarge!.copyWith(fontWeight: FontWeight.w600),
         ),
         const Spacer(),
-        TextButton(
-          onPressed: onTap,
+        if (onTap != null)
+          TextButton(
+            onPressed: onTap,
 
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.zero,
-            backgroundColor: colorScheme(context).surface,
-            foregroundColor: colorScheme(context).secondary,
-          ),
+            style: TextButton.styleFrom(
+              padding: EdgeInsets.zero,
+              backgroundColor: colorScheme(context).surface,
+              foregroundColor: colorScheme(context).secondary,
+            ),
 
-          child: Text(
-            "View All",
-            style: txtTheme(
-              context,
-            ).bodySmall?.copyWith(fontWeight: FontWeight.w600),
+            child: Text(
+              "View All",
+              style: txtTheme(
+                context,
+              ).bodySmall?.copyWith(fontWeight: FontWeight.w600),
+            ),
           ),
-        ),
       ],
     );
   }
@@ -133,7 +135,14 @@ class CustomWidgets {
                 isDense: true,
                 fillColor: Colors.white,
                 contentPadding: EdgeInsets.symmetric(vertical: 12),
-                border: InputBorder.none,
+                border: OutlineInputBorder(),
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black26),
+                ),
+                errorBorder: OutlineInputBorder(),
+                focusedBorder: OutlineInputBorder(),
+                disabledBorder: OutlineInputBorder(),
+                focusedErrorBorder: OutlineInputBorder(),
               ),
               items:
                   itemsList.map<DropdownMenuItem<String>>((String value) {

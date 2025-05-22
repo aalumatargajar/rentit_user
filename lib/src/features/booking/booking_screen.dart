@@ -22,11 +22,9 @@ class BookingScreen extends StatefulWidget {
 class _BookingScreenState extends State<BookingScreen> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   Query query() {
-    final today = DateTime.now();
-    print(today.toIso8601String());
     return _firestore
         .collection('booking')
-        .where('endDate', isGreaterThanOrEqualTo: today.toIso8601String());
+        .where('endDate', isGreaterThanOrEqualTo: DateTime.now());
   }
 
   Future<CarModel?> getCarById({required String carId}) async {
@@ -37,6 +35,11 @@ class _BookingScreenState extends State<BookingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("My Bookings"),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: FirestorePagination(
@@ -200,7 +203,8 @@ class _BookingScreenState extends State<BookingScreen> {
                                         ),
                                       ),
                                       TextSpan(
-                                        text: booking.totalPrice.toString(),
+                                        text: booking.totalPrice
+                                            .toStringAsFixed(0),
                                         style: txtTheme(
                                           context,
                                         ).titleSmall!.copyWith(

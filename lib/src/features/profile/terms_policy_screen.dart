@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rentit_user/src/common/const/global_variable.dart';
+import 'package:rentit_user/src/common/widgets/custom_back_button.dart';
 
 class TermsPolicyScreen extends StatefulWidget {
   const TermsPolicyScreen({super.key});
@@ -12,96 +13,84 @@ class _TermsPolicyScreenState extends State<TermsPolicyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Terms & Policy")),
+      appBar: AppBar(
+        leading: CustomBackButton(
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text("Terms & Policy"),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Column(
           spacing: 2,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("1. Overview", style: txtTheme(context).titleSmall),
+            Text("1. Acceptance of Terms", style: txtTheme(context).titleSmall),
             Text(
-              "Welcome to Roomify! By using our services, you agree to the following terms and conditions. Roomify serves as an intermediary between students and hostel managers, assisting students in finding suitable hostels based on their preferences. Roomify does not own or operate any hostels and is not responsible for the management or upkeep of the hostels listed on our platform.",
+              "By accessing or using the RentIt app, you agree to be bound by these Terms and Conditions and our Privacy Policy. If you do not agree, please do not use the app.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),
-            Text("2. Services Provided", style: txtTheme(context).titleSmall),
+            Text("2. Eligibility", style: txtTheme(context).titleSmall),
             Text(
-              "Roomify connects students with hostels and charges hostel managers a fee for each student placed. We provide assistance in guiding students to hostels based on their preferences, location, and availability. Contacting us via the app's Contact button allows us to follow up and connect you with your desired hostel.",
-              style: txtTheme(context).bodySmall,
-            ),
-            SizedBox(height: 6),
-            Text("3. Responsibilities", style: txtTheme(context).titleSmall),
-            Text(
-              "Roomify is responsible for facilitating contact between students and hostels. Roomify is not responsible for the quality, safety, cleanliness, or any other aspect of the hostels. Once the student is placed in a hostel, all further matters, including disputes, maintenance, security, and other issues, are strictly between the student and the hostel management.",
-              style: txtTheme(context).bodySmall,
-            ),
-            SizedBox(height: 6),
-            Text("4. Fees and Payments", style: txtTheme(context).titleSmall),
-            Text(
-              " Roomify charges hostel managers a fee for each student referred and placed through our platform. Students are not charged for using the Roomify platform, but hostel costs are to be discussed directly with the hostel manager.",
+              "You must be at least 18 years old and possess a valid driver’s license to rent a vehicle through RentIt.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),
             Text(
-              "5. Limitation of Liability",
+              "3. User Responsibilities",
               style: txtTheme(context).titleSmall,
             ),
             Text(
-              "Roomify is not responsible for any problems, disputes, or incidents that arise between the student and the hostel, including but not limited to:",
-              style: txtTheme(context).bodySmall,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: Text(
-                "> Issues related to safety and security.",
-                style: txtTheme(context).bodySmall,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: Text(
-                "> Room quality or condition.",
-                style: txtTheme(context).bodySmall,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: Text(
-                "> Hostel rules and regulations.",
-                style: txtTheme(context).bodySmall,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 6),
-              child: Text(
-                "> Financial disputes.",
-                style: txtTheme(context).bodySmall,
-              ),
-            ),
-            Text(
-              "Roomify acts solely as a facilitator and is not liable for any loss, damages, or grievances experienced by students during or after their stay at the hostel.",
+              "Users must provide accurate, current, and complete information. You are responsible for maintaining the confidentiality of your account. Users must comply with all applicable traffic laws and rental terms.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),
             Text(
-              "6. User Responsibilities",
+              "4. Booking and Payments",
               style: txtTheme(context).titleSmall,
             ),
             Text(
-              "Students must verify the conditions, rules, and regulations of the hostel they choose. Users are responsible for providing accurate information when using the Roomify app. Any agreements made between the student and the hostel are independent of Roomify and should be reviewed carefully.",
+              "All vehicle rentals must be booked through the app. Payments are processed securely via integrated payment gateways. Cancellations and refunds are subject to the cancellation policy of individual car owners or agencies.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),
-            Text("7. Changes to Terms", style: txtTheme(context).titleSmall),
+            Text("5. Vehicle Use", style: txtTheme(context).titleSmall),
             Text(
-              "Roomify reserves the right to update these terms at any time. Users will be notified of any significant changes, and continued use of the platform will constitute acceptance of the updated terms.",
+              "Rented vehicles must be used responsibly and returned in the same condition. Users must not engage in illegal activities using the rented vehicles. Fuel, tolls, and traffic violations are the renter's responsibility.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),
-            Text("8. Contact Information", style: txtTheme(context).titleSmall),
             Text(
-              "For any questions or concerns, users can reach out through the Contact button in the Roomify app. However, for issues related to the hostel, users must contact the hostel manager directly.",
+              "6. Insurance and Liability",
+              style: txtTheme(context).titleSmall,
+            ),
+            Text(
+              "Users may be required to provide proof of insurance or purchase coverage via RentIt. RentIt is not liable for accidents, theft, or damage during the rental period.",
+              style: txtTheme(context).bodySmall,
+            ),
+            SizedBox(height: 6),
+            Text(
+              "7. Prohibited Activities",
+              style: txtTheme(context).titleSmall,
+            ),
+            Text(
+              "Unauthorized subleasing or transfer of rented vehicles. Misuse, abuse, or damage to the vehicle. Use of RentIt for commercial purposes without consent.",
+              style: txtTheme(context).bodySmall,
+            ),
+            SizedBox(height: 6),
+            Text("8. Termination", style: txtTheme(context).titleSmall),
+            Text(
+              "RentIt reserves the right to suspend or terminate your account for violations of these terms or misuse of the platform.",
+              style: txtTheme(context).bodySmall,
+            ),
+            SizedBox(height: 6),
+            Text("Changes to Terms", style: txtTheme(context).titleSmall),
+            Text(
+              "RentIt may modify these terms at any time. Continued use after changes indicates acceptance.",
               style: txtTheme(context).bodySmall,
             ),
             SizedBox(height: 6),

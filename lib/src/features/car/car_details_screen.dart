@@ -211,7 +211,9 @@ class _CarDetailsScreenState extends State<CarDetailsScreen> {
                             ),
                           ),
                           TextSpan(
-                            text: widget.carModel.pricePerDay.toString(),
+                            text: widget.carModel.pricePerDay.toStringAsFixed(
+                              0,
+                            ),
                             style: txtTheme(context).titleMedium!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,

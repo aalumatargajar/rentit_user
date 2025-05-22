@@ -4,6 +4,7 @@ import 'package:rentit_user/src/common/const/app_color.dart';
 import 'package:rentit_user/src/common/const/app_images.dart';
 import 'package:rentit_user/src/common/const/global_variable.dart';
 import 'package:rentit_user/src/common/const/static_data.dart';
+import 'package:rentit_user/src/common/widgets/custom_back_button.dart';
 import 'package:rentit_user/src/common/widgets/custom_elevated_button.dart';
 import 'package:rentit_user/src/common/widgets/custom_textformfield.dart';
 import 'package:rentit_user/src/features/auth/auth_provider.dart';
@@ -33,7 +34,15 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Edit Profile"), centerTitle: true),
+      appBar: AppBar(
+        leading: CustomBackButton(
+          onTap: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: Text("Edit Profile"),
+        centerTitle: true,
+      ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
